@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التميز لتعليم البرمجة</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. الشاشة الترحيبية وتسجيل الاسم -->
+    <div id="welcome-screen" class="screen active">
+        <div class="card animated">
+            <h1>مرحباً بك في منصة التميز التعليمية</h1>
+            <p class="subtitle">رحلتك نحو عالم احتراف البرمجة تبدأ من هنا.</p>
+            <div class="input-group">
+                <label for="username">من فضلك، أدخل اسمك الثلاثي لبدء الرحلة:</label>
+                <input type="text" id="username" placeholder="مثال: أحمد محمد علي">
+            </div>
+            <button id="btn-start" class="btn">أكمل</button>
+        </div>
+    </div>
+
+    <!-- 2. لوحة التحكم واختيار اللغة والمربع الرابع (CSS) -->
+    <div id="dashboard-screen" class="screen">
+        <div class="header-bar">
+            <h2>أهلاً بك يا <span id="user-display-name"></span> 👋</h2>
+            <button id="btn-go-certs" class="btn btn-secondary">🏅 معرض الشهادات</button>
+        </div>
+        
+        <h3 class="section-title">اختر المسار التعليمي الذي ترغب في تعلمه:</h3>
+        <div class="languages-grid">
+            <div class="lang-card" onclick="openLanguage('Python')">
+                <div class="icon">🐍</div>
+                <h3>لغة Python</h3>
+                <p>لغة الذكاء الاصطناعي والتحليل الرقمي.</p>
+            </div>
+            <div class="lang-card" onclick="openLanguage('HTML')">
+                <div class="icon">🌐</div>
+                <h3>لغة HTML</h3>
+                <p>الهيكل الأساسي لبناء وتصميم مواقع الويب.</p>
+            </div>
+            <div class="lang-card" onclick="openLanguage('Java')">
+                <div class="icon">☕</div>
+                <h3>لغة Java</h3>
+                <p>لغة بناء تطبيقات الأندرويد والأنظمة الكبيرة.</p>
+            </div>
+            <div class="lang-card" onclick="openLanguage('CSS')">
+                <div class="icon">🎨</div>
+                <h3>لغة CSS</h3>
+                <p>إضافة التنسيقات والألوان الجمالية للمواقع.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. صفحة الشرح والمستويات -->
+    <div id="learning-screen" class="screen">
+        <button class="btn-back" onclick="showScreen('dashboard-screen')">🔙 العودة للرئيسية</button>
+        <div class="learning-container">
+            <h2 id="current-lang-title">اسم اللغة</h2>
+            
+            <!-- خريطة المستويات الـ 11 -->
+            <div class="levels-map" id="levels-map-container"></div>
+
+            <!-- لوحة قراءة الشرح للمستوى الحالي -->
+            <div id="lesson-box" class="lesson-box">
+                <h3 id="lesson-level-title">المستوى 1: المقدمة</h3>
+                <div id="lesson-content" class="lesson-content">
+                    <!-- يتم تحميل الشرح العلمي هنا عبر الجافاسكريبت -->
+                </div>
+                <button id="btn-complete-reading" class="btn">مكتمل القراءه وبدء الاختبار 📝</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. شاشة الاختبارات التفاعلية -->
+    <div id="quiz-screen" class="screen">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <span id="quiz-info-title">اختبار لغة Python - المستوى 1</span>
+                <span id="quiz-progress">السؤال 1 من 10</span>
+            </div>
+            <div class="card">
+                <p id="question-text" class="question-text">السؤال هنا؟</p>
+                <div id="answers-options" class="options-container">
+                    <!-- الخيارات تولد ديناميكياً -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. معرض ومكان مخصص للشهادات -->
+    <div id="certificates-screen" class="screen">
+        <button class="btn-back" onclick="showScreen('dashboard-screen')">🔙 العودة للرئيسية</button>
+        <h2>🏅 معرض إنجازاتك وشهاداتك</h2>
+        
+        <!-- الأقسام الأربعة المخصصة لكل لغة -->
+        <div class="certs-tabs">
+            <button class="tab-link active" onclick="switchCertTab('Python')">Python</button>
+            <button class="tab-link" onclick="switchCertTab('HTML')">HTML</button>
+            <button class="tab-link" onclick="switchCertTab('Java')">Java</button>
+            <button class="tab-link" onclick="switchCertTab('CSS')">CSS</button>
+        </div>
+
+        <div id="certs-display-container" class="certs-grid">
+            <!-- تظهر الشهادات المكتسبة هنا بحسب التبويب -->
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة لعرض الشهادة وتكبيرها وقابليتها للطباعة -->
+    <div id="cert-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCertModal()">&times;</span>
+            <div id="certificate-print-area">
+                <!-- هيكل وتصميم الشهادة الديناميكي -->
+            </div>
+            <button class="btn btn-print" onclick="window.print()">🖨️ طباعة الشهادة / حفظ كـ PDF</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
